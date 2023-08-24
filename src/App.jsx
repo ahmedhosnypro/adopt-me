@@ -1,16 +1,31 @@
 import { createRoot } from "react-dom/client";
-// import Pet from "./Pet";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import SearchParam from "./SearchParam";
+import Details from "./Details";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    },
+  },
+});
 
 const App = () => {
   return (
-    <div>
-      <h1>Adopt-me</h1>
-      {/* <Pet name="Luna" animal="Dog" breed="Havanese" />
-      <Pet name="Pepper" animal="Bird" breed="Cockatiel" />
-      <Pet name="Doink" animal="Cat" breed="Mixed" /> */}
-      <SearchParam />
-    </div>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <header>
+          <Link to="/">Adopt Me!</Link>
+        </header>{" "}
+        <Routes>
+          <Route path="/details/:id" element={<Details />} />
+          <Route path="/" element={<SearchParam />} />
+        </Routes>
+      </QueryClientProvider>
+    </BrowserRouter>
   );
 };
 
