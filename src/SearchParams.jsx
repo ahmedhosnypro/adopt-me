@@ -21,19 +21,21 @@ const SearchParams = () => {
   const pets = results?.data?.pets ?? [];
 
   return (
-    <div className="search-params">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const obj = {
-            location: formData.get("location") ?? "",
-            animal: formData.get("animal") ?? "",
-            breed: formData.get("breed") ?? "",
-          };
-          setRequestParams(obj);
-        }}
-      >{
+    <div className="my-0 mx-auto w-11/12">
+  <form
+    className="p-10 mb-10 rounded-lg bg-gray-200 shadow-lg flex flex-col justify-center items-center"
+    onSubmit={(e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const obj = {
+        animal: formData.get("animal") ?? "",
+        breed: formData.get("breed") ?? "",
+        location: formData.get("location") ?? "",
+      };
+      setRequestParams(obj);
+    }}
+  >
+    {
         adoptedPet ? (
           <div className="pet image-container">
           <img src={adoptedPet.images[0]} alt={adoptedPet.name} />
@@ -42,12 +44,13 @@ const SearchParams = () => {
       }
         <label htmlFor="location">
           Location
-          <input id="location" name="location" placeholder="Location" />
+          <input className = "search-input" type="text" id="location" name="location" placeholder="Location" />
         </label>
 
         <label htmlFor="animal">
           Animal
           <select
+className = "search-input"
             id="animal"
             name="animal"
             onChange={(e) => {
@@ -65,7 +68,7 @@ const SearchParams = () => {
 
         <label htmlFor="breed">
           Breed
-          <select disabled={!breeds.length} name="breed" id="breed">
+          <select  className = "search-input grayed-out-disabled" disabled={!breeds.length} name="breed" id="breed">
             <option />
             {breeds.map((breed) => (
               <option key={breed} value={breed}>
