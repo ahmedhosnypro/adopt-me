@@ -4,8 +4,10 @@ import AdoptedPetContext from "./AdoptedPetContext";
 import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
-import { useContext, useState } from "react";
-import Modal from "./Modal";
+import { Suspense, useContext, useState, lazy } from "react";
+// import Modal from "./Modal";
+
+const Modal = lazy(() => import("./Modal"));
 
 const Details = () => {
   const navigate = useNavigate();
