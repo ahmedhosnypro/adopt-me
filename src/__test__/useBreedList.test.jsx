@@ -15,6 +15,12 @@ const queryClient = new QueryClient({
 
 test("gives an empty list with no animal", async () => {
   const { result } = renderHook(() => useBreedList(""), {
-    wrapper,
+    wrapper: ({ children }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    ),
   });
+
+  const [breedList, status] = result.current;
+  expect(breedList).toHaveLength(0);
+  expect(status).toBe("loading");
 });
